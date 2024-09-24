@@ -1,0 +1,11 @@
+{
+    "name": "UrlShortenerSystem",
+    "alias": "urlshortenersystem",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\UrlShortenerSystem\\App\\Providers\\UrlShortenerSystemServiceProvider"
+    ],
+    "files": []
+}

@@ -1,0 +1,31 @@
+{
+    "name": "nwidart/urlshortenersystem",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\UrlShortenerSystem\\": "",
+            "Modules\\UrlShortenerSystem\\App\\": "app/",
+            "Modules\\UrlShortenerSystem\\Database\\Factories\\": "database/factories/",
+            "Modules\\UrlShortenerSystem\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\UrlShortenerSystem\\Tests\\": "tests/"
+        }
+    }
+}

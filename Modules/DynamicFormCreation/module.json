@@ -1,0 +1,11 @@
+{
+    "name": "DynamicFormCreation",
+    "alias": "dynamicformcreation",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\DynamicFormCreation\\App\\Providers\\DynamicFormCreationServiceProvider"
+    ],
+    "files": []
+}
