@@ -30,7 +30,7 @@ class FormSubmissionController extends Controller
         $submission->submitted_data = json_encode($formData);
         $submission->save();
 
-        return redirect()->back()->with('success', 'Form submitted successfully.');
+        return redirect(route('all.submitted.data'))->with('success', 'Form submitted successfully.');
     }
 
 
