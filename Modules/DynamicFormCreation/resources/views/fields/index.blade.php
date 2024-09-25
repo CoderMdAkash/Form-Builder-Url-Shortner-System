@@ -33,7 +33,7 @@
                         @foreach ($fields as $item)
                             <tr>
                                 <th>{{$item->order}}</th>
-                                <th>{{$item->formTemplate->title}}</th>
+                                <th>{{@$item->formTemplate->title}}</th>
                                 <td>{{$item->name}}</td>
                                 <td>{{$item->label}}</td>
                                 <td>{{$item->type}}</td>

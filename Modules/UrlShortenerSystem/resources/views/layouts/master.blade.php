@@ -45,11 +45,11 @@
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
-                <a href="index.html" class="navbar-brand mx-4 mb-3">
+                <a href="/" class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary">LOGO</h3>
                 </a>
                 
-                @include('dynamicformcreation::layouts.sidebar')
+                @include('urlshortenersystem::layouts.sidebar')
 
             </nav>
         </div>
@@ -58,9 +58,10 @@
 
         <!-- Content Start -->
         <div class="content">
+            
             <!-- Navbar Start -->
             <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
-                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+                <a href="#" class="navbar-brand d-flex d-lg-none me-4">
                     <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
                 </a>
                 <a href="#" class="sidebar-toggler flex-shrink-0">
@@ -96,15 +97,7 @@
             <!-- Navbar End -->
 
 
-            <!-- Sale & Revenue Start -->
-            <div class="container-fluid pt-4 px-4">
-                <div class="row g-4">
-                    <div class="col-sm-12 col-xl-12">
-                        <h3 class="text-center mt-5 pt-5">Welcome To Dashboard</h3>
-                    </div>
-                </div>
-            </div>
-            <!-- Sale & Revenue End -->
+            @yield('content')
 
 
         </div>

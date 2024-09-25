@@ -1,4 +1,4 @@
-@extends('dynamicformcreation::layouts.master')
+@extends('urlshortenersystem::layouts.master')
 
 @section('content')
 

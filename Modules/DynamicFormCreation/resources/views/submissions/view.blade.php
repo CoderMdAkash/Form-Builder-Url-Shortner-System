@@ -23,7 +23,7 @@
                           <tbody>
                             @foreach($submissions as $submission)
                                 <tr>
-                                    <td>{{ $submission->formTemplate->title }}</td>
+                                    <td>{{ @$submission->formTemplate->title }}</td>
                                     <td>{{ $submission->user->name }}</td>
                                     <td>{{ $submission->created_at }}</td>
                                     <td>
@@ -33,7 +33,7 @@
                                                 @php
                                                     $field = Modules\DynamicFormCreation\App\Models\Field::find($key) ?? [];
                                                 @endphp
-                                                <li><b>{{ $field->name }}:</b> {{ $value }}</li>
+                                                <li><b>{{ @$field->name }}:</b> {{ $value }}</li>
                                             @endforeach
                                             @endif
                                         </ul>

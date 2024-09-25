@@ -6,6 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Modules\UrlShortenerSystem\App\Http\Requests\UrlStore;
+use Modules\UrlShortenerSystem\App\Models\Url;
+use Auth;
+use Modules\UrlShortenerSystem\App\Models\UrlClickInfo;
+use Str;
 
 class UrlShortenerSystemController extends Controller
 {
@@ -14,7 +19,9 @@ class UrlShortenerSystemController extends Controller
      */
     public function index()
     {
-        return view('urlshortenersystem::index');
+        $urls = Url::with('user')->latest()->get();
+
+        return view('urlshortenersystem::urls.index', compact('urls'));
     }
 
     /**
@@ -22,15 +29,24 @@ class UrlShortenerSystemController extends Controller
      */
     public function create()
     {
-        return view('urlshortenersystem::create');
+        return view('urlshortenersystem::urls.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(UrlStore $request): RedirectResponse
     {
-        //
+        $data = $request->all();
+
+        $data['user_id'] = Auth::user()->id;
+        $data['title'] = Str::ucfirst($request->title);
+        $data['original_url'] = $request->original_url;
+        $data['shortened_url'] = Str::random(5);
+        
+        Url::create($data);
+
+        return redirect(route('urls.index'));
     }
 
     /**
@@ -38,7 +54,9 @@ class UrlShortenerSystemController extends Controller
      */
     public function show($id)
     {
-        return view('urlshortenersystem::show');
+        $url = Url::with('visitors')->findOrFail($id);
+
+        return view('urlshortenersystem::urls.visitors', compact('url'));
     }
 
     /**
@@ -46,15 +64,25 @@ class UrlShortenerSystemController extends Controller
      */
     public function edit($id)
     {
-        return view('urlshortenersystem::edit');
+        $url = Url::findOrFail($id);
+        return view('urlshortenersystem::urls.edit', compact('url'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id): RedirectResponse
+    public function update(UrlStore $request, $id): RedirectResponse
     {
-        //
+        $data = $request->all();
+
+        $data['user_id'] = Auth::user()->id;
+        $data['title'] = Str::ucfirst($request->title);
+        $data['original_url'] = $request->original_url;
+        $data['shortened_url'] = Str::random(5);
+        
+        Url::findOrFail($id)->update($data);
+
+        return redirect(route('urls.index'));
     }
 
     /**
@@ -62,6 +90,24 @@ class UrlShortenerSystemController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Url::findOrFail($id)->delete();
+
+        return redirect()->route( 'urls.index')->with(['success' => 'Url Deleted']);
+    }
+
+    public function shortenLink(Request $request, $shortener_url)
+    {
+        $find = Url::where('shortened_url', $shortener_url)->firstOrFail();
+
+        if($find){
+            $find->increment('click_count');
+
+            $url = new UrlClickInfo();
+            $url->url_id = $find->id;
+            $url->ip = $request->ip();
+            $url->save();
+        }
+
+        return redirect($find->original_url);
     }
 }
